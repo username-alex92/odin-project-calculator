@@ -29,15 +29,21 @@ function readInput(event) {
         // should clear the result and start a new calculation 
         // instead of appending the digit to the existing result.
         input.value = "";
+        if (input.value.includes(".")) {
+            disableDecimalButton();
+        }
         input.value += event.target.textContent;
         toggleEquals = false;
     } else {
+        if (input.value.includes(".")) {
+            disableDecimalButton();
+        }
         input.value += event.target.textContent;
     }
 }
 
 function calculate() {
-    return operate(parseInt(firstNumber), operator, parseInt(secondNumber));
+    return operate(Number(firstNumber), operator, Number(secondNumber));
 }
 
 function equal() {
@@ -51,7 +57,11 @@ function equal() {
         toggleEquals = true;
         secondNumber = input.value;
         result = calculate();
-        input.value = result;
+        if (Number.isInteger) {
+            input.value = result;
+        } else {
+            input.value = result.toFixed(3);
+        }
         operatorCount = 0;
     }
 }
@@ -64,10 +74,15 @@ function reset() {
     input.value = "";
 }
 
+function disableDecimalButton() {
+    decimalPoint.disabled ^= true;
+}
+
 
 const input = document.querySelector("input");
 const digits = document.querySelector(".digits");
 const operators = document.querySelector(".operators");
+const decimalPoint = document.querySelector("#decimal-point");
 const equals = document.querySelector("#equals");
 const clear = document.querySelector("#clear");
 
@@ -86,11 +101,14 @@ operators.addEventListener("click", (event) => {
         firstNumber = result;
         operatorCount = 0;
     }
+    disableDecimalButton();
     firstNumber = input.value;
     operator = event.target.textContent;
     input.value = "";
     operatorCount++;
 });
+
+decimalPoint.addEventListener("click", readInput);
 
 equals.addEventListener("click", equal);
 
