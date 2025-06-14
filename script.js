@@ -24,7 +24,16 @@ function operate(firstNumber, operator, secondNumber) {
 
 
 function readInput(event) {
-    input.value += event.target.textContent;
+    if (toggleEquals) {
+        // When a result is displayed, pressing a new digit 
+        // should clear the result and start a new calculation 
+        // instead of appending the digit to the existing result.
+        input.value = "";
+        input.value += event.target.textContent;
+        toggleEquals = false;
+    } else {
+        input.value += event.target.textContent;
+    }
 }
 
 function calculate() {
@@ -39,6 +48,7 @@ function equal() {
         alert("Division into zero is impossible");
         input.value = "";
     }  else {
+        toggleEquals = true;
         secondNumber = input.value;
         result = calculate();
         input.value = result;
@@ -66,6 +76,7 @@ let secondNumber;
 let operator = "";
 let operatorCount = 0;
 let result;
+let toggleEquals = false;
 
 digits.addEventListener("click", readInput);
 
