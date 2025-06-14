@@ -32,9 +32,13 @@ function calculate() {
 }
 
 function equal() {
+    secondNumber = input.value;
     if (firstNumber === undefined || firstNumber === null) {
         input.value = "";
-    } else {
+    } else if (operator === "/" && secondNumber === "0") {
+        alert("Division into zero is impossible");
+        input.value = "";
+    }  else {
         secondNumber = input.value;
         result = calculate();
         input.value = result;
