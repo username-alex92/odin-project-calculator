@@ -30,13 +30,17 @@ function readInput(event) {
         // instead of appending the digit to the existing result.
         input.value = "";
         if (input.value.includes(".")) {
-            disableDecimalButton();
+            decimalPoint.disabled = true;
+        } else {
+            decimalPoint.disabled = false;
         }
         input.value += event.target.textContent;
         toggleEquals = false;
     } else {
         if (input.value.includes(".")) {
-            disableDecimalButton();
+            decimalPoint.disabled = true;
+        } else {
+            decimalPoint.disabled = false;
         }
         input.value += event.target.textContent;
     }
@@ -74,10 +78,6 @@ function reset() {
     input.value = "";
 }
 
-function disableDecimalButton() {
-    decimalPoint.disabled ^= true;
-}
-
 
 const input = document.querySelector("input");
 const digits = document.querySelector(".digits");
@@ -101,7 +101,6 @@ operators.addEventListener("click", (event) => {
         firstNumber = result;
         operatorCount = 0;
     }
-    disableDecimalButton();
     firstNumber = input.value;
     operator = event.target.textContent;
     input.value = "";
