@@ -84,6 +84,7 @@ const digits = document.querySelector(".digits");
 const operators = document.querySelector(".operators");
 const decimalPoint = document.querySelector("#decimal-point");
 const equals = document.querySelector("#equals");
+const clearEntry = document.querySelector("#clear-entry");
 const clear = document.querySelector("#clear");
 
 let firstNumber;
@@ -110,5 +111,12 @@ operators.addEventListener("click", (event) => {
 decimalPoint.addEventListener("click", readInput);
 
 equals.addEventListener("click", equal);
+
+clearEntry.addEventListener("click", () => {
+    let currentValue = input.value;
+    if (currentValue.length > 0) {
+        input.value = currentValue.substring(0, currentValue.length - 1);
+    }
+});
 
 clear.addEventListener("click", reset);
